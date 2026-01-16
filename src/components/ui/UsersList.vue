@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { User } from '@/models/User'
+import UserItem from './UserItem.vue';
 
 const props = defineProps<{
     users: User[]
@@ -8,6 +9,6 @@ const props = defineProps<{
 
 <template>
     <div v-for="user in props.users" :key="user.id">
-        {{ user.name }}
+        <UserItem :user="user" />
     </div>
 </template>

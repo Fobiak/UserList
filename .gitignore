@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 .DS_Store
 dist
+.eslintrc-auto-import.json
 dist-ssr
 coverage
 *.local
@@ -23,6 +24,7 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+auto-imports.d.ts
 
 *.tsbuildinfo
 

@@ -1,6 +1,5 @@
 import { mockUsers } from "@/mocks/mockUsers";
 import type { User } from "@/models/User";
-import { createStore } from "vuex";
 
 export interface UsersState {
   users: User[]
