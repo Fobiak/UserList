@@ -12,8 +12,9 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "lint": "eslint . --fix --cache",
-    "format": "prettier --write --experimental-cli src/"
+    "lint": "eslint . --ext .ts,.vue --fix --cache",
+    "format": "prettier --write 'src/**/*.{ts,vue,js,css}'",
+    "prepare": "husky install"
   },
   "dependencies": {
     "vue": "^3.5.26",
@@ -28,6 +29,7 @@
     "@vue/tsconfig": "^0.8.1",
     "eslint": "^9.39.2",
     "eslint-plugin-vue": "~10.6.2",
+    "husky": "^8.0.0",
     "jiti": "^2.6.1",
     "npm-run-all2": "^8.0.4",
     "prettier": "3.7.4",
