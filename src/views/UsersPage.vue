@@ -9,21 +9,36 @@ onMounted(() => {
     loadUsers()
 })
 </script>
+
 <template>
-    <div class="block">
+    <div class="page">
         <p>
-            Страница со списком пользователей
+            Управление пользователями
         </p>
         <UserFilter v-model:search-text="searchText" v-model:sort-by="sortBy" v-model:sort-direction="sortDirection"
             v-model:only-adults="onlyAdults" :is-available-sort="isAvailableSort" :toggle-sort="toggleSortUsers" />
-        <UsersList :users="users" />
+        <div class="list-wrapper">
+            <UsersList :users="users" />
+        </div>
     </div>
 </template>
 
 <style lang="css" scoped>
-.block {
+.page {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    height: 100vh;
+    padding: 12px;
+    box-sizing: border-box;
+    gap: 12px;
+}
+
+.list-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    gap: 12px;
 }
 </style>

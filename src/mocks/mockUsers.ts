@@ -10,5 +10,6 @@ export const mockUsers: User[] = [
     { id: 7, name: 'Максим', surname: 'Смирнов', age: 18, email: 'MaximSmirnov@example.com' },
     { id: 8, name: 'Даниил', surname: 'Вьюшкин', age: 14, email: 'DaniilKuznetsov@example.com' },
     { id: 9, name: 'Андрей', surname: 'Мышкин', age: 16, email: 'AndreySokolov@example.com' },
-    { id: 10, name: 'Евгений', surname: 'Донов', age: 70, email: 'EvgeniyPavlov@example.com' }
+    { id: 10, name: 'Евгений', surname: 'Донов', age: 70, email: 'EvgeniyPavlov@example.com' },
+    { id: 11, name: 'Олег', surname: 'семкин', age: 22, email: 'Vue2@example.com' },
 ]
