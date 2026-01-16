@@ -1,11 +1,11 @@
-import { useStore } from "vuex";
+import { SortDirectionEnum, type SortDirectionType, type SortType } from "@/constants/filters";
 
 export function useUsersPresenters() {
   const store = useStore()
 
   const searchText = ref('')
-  const sortBy = ref<'name' | 'age' | null>(null)
-  const sortDirection = ref<'asc' | 'desc'>('asc')
+  const sortBy = ref<SortType | null>(null)
+  const sortDirection = ref<SortDirectionType>(SortDirectionEnum.ASC)
   const onlyAdults = ref(false)
 
 const loadUsers = () => {
@@ -25,7 +25,7 @@ const loadUsers = () => {
     .sort((a, b) => {
       if (!sortBy.value) return 0
       const field = sortBy.value
-      return sortDirection.value === 'asc'
+      return sortDirection.value === SortDirectionEnum.ASC
         ? a[field] > b[field]
           ? 1
           : -1
@@ -36,7 +36,7 @@ const loadUsers = () => {
   )
 
   const toggleSortUsers = () => {
-    sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc'
+    sortDirection.value = sortDirection.value === SortDirectionEnum.ASC ? SortDirectionEnum.DESC : SortDirectionEnum.ASC
   }
 
   const isAvailableSort = computed(() => !!sortBy.value)

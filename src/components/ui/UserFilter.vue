@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { SortByEnum, SortDirectionEnum, type SortDirectionType, type SortType } from '@/constants/filters';
 import { CaretBottom, CaretTop } from '@element-plus/icons-vue'
 
 const props = defineProps<{
@@ -7,19 +8,19 @@ const props = defineProps<{
 }>()
 
 const searchText = defineModel<string>('searchText')
-const sortBy = defineModel<'name' | 'age' | null>('sortBy')
-const sortDirection = defineModel<'asc' | 'desc'>('sortDirection')
+const sortBy = defineModel<SortType | null>('sortBy')
+const sortDirection = defineModel<SortDirectionType>('sortDirection')
 const ageCheckbox = defineModel<boolean>('onlyAdults')
 
-const caretIcon = computed(() => sortDirection.value === 'asc' ? CaretBottom : CaretTop)
+const caretIcon = computed(() => sortDirection.value === SortDirectionEnum.ASC ? CaretTop : CaretBottom)
 </script>
 
 <template>
     <div class="block">
         <ElInput v-model="searchText" placeholder="Поиск" />
         <ElSelect v-model="sortBy" placeholder="Сортировка" clearable>
-            <ElOption label="По имени" value="name" />
-            <ElOption label="По позрасту" value="age" />
+            <ElOption label="По имени" :value="SortByEnum.NAME" />
+            <ElOption label="По возрасту" :value="SortByEnum.AGE" />
         </ElSelect>
         <ElButton v-if="props.isAvailableSort" @click="props.toggleSort">
             <ElIcon>
