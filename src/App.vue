@@ -1,9 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import UsersPage from './views/UsersPage.vue';
+</script>
 
 <template>
-  <p>
-    UserList
-  </p>
+  <UsersPage />
 </template>
 
 <style scoped></style>
