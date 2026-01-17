@@ -1,6 +1,7 @@
 {
   "name": "userlist",
   "version": "0.0.0",
+  "homepage": "https://Fobiak.github.io/UserList",
   "private": true,
   "type": "module",
   "engines": {
@@ -9,6 +10,8 @@
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
@@ -31,6 +34,7 @@
     "@vue/tsconfig": "^0.8.1",
     "eslint": "^9.39.2",
     "eslint-plugin-vue": "~10.6.2",
+    "gh-pages": "^6.3.0",
     "husky": "^8.0.0",
     "jiti": "^2.6.1",
     "npm-run-all2": "^8.0.4",
