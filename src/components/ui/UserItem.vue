@@ -97,6 +97,8 @@ function handleDeleteImage() {
     display: flex;
     align-items: center;
     gap: 12px;
+    flex: 1;
+    min-width: 0;
 }
 
 .avatar-uploader .avatar {
@@ -131,7 +133,8 @@ function handleDeleteImage() {
 
 @media (max-width: 600px) {
     .user-fio {
-        max-width: 120px;
+        flex: 1;
+        min-width: 0;
     }
 
     .user-fio p {
