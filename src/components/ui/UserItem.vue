@@ -1,17 +1,62 @@
 <script setup lang="ts">
-import type { User } from '@/models/User'
+import type { User, UserUploadDelImage } from '@/models/User'
+import { Plus } from '@element-plus/icons-vue'
+import { ElMessage, type UploadFile } from 'element-plus'
 
 const { user } = defineProps<{
     user: User
 }>()
+
+const emits = defineEmits<{
+    uploadImage: [UserUploadDelImage]
+    deleteImage: [number]
+}>()
+
+function beforeUpload(file: File) {
+    const isFileSizeLarger = file.size / 1024 / 1024 < 1
+
+    if (!isFileSizeLarger) {
+        ElMessage.error('Размер изображения не может быть больше 1MB!')
+        return false
+    }
+
+    return true
+}
+
+
+function handleChangeImage(file: UploadFile) {
+    const raw = file.raw
+
+    if (!raw)
+        return
+
+    const reader = new FileReader()
+
+    reader.onload = () => {
+        const result = reader.result
+        if (typeof result === 'string') {
+            emits('uploadImage', { id: user.id, image: result })
+        }
+    }
+
+    reader.readAsDataURL(raw)
+}
+
+function handleDeleteImage() {
+    emits('deleteImage', user.id)
+}
 </script>
 
 <template>
     <div class="user-card">
         <div class="user-info">
-            <div class="user-photo">
-                <img :src="user.image" alt="Фото" />
-            </div>
+            <ElUpload :before-upload="beforeUpload" :on-change="handleChangeImage" :show-file-list="false"
+                accept="image/*" :auto-upload="false" class="avatar-uploader">
+                <img v-if="user.image" :src="user.image" class="avatar" />
+                <ElIcon v-else class="avatar-uploader-icon">
+                    <Plus />
+                </ElIcon>
+            </ElUpload>
 
             <div class="user-fio">
                 <h3>{{ user.name }} {{ user.surname }}</h3>
@@ -20,15 +65,26 @@ const { user } = defineProps<{
             </div>
         </div>
         <div class="button">
-            <ElButton>Загрузить фото</ElButton>
-            <ElButton>Удалить фото</ElButton>
+            <ElButton @click="handleDeleteImage">Удалить фото</ElButton>
         </div>
     </div>
 </template>
 
+<style lang="css">
+.avatar-uploader .el-upload {
+    border: 1px dashed var(--el-border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: var(--el-transition-duration-fast);
+}
+</style>
+
 <style lang="css" scoped>
 .user-card {
     display: flex;
+    align-items: center;
     gap: 12px;
     padding: 12px;
     border: 1px solid #eee;
@@ -39,17 +95,21 @@ const { user } = defineProps<{
 
 .user-info {
     display: flex;
+    align-items: center;
     gap: 12px;
 }
 
-.user-photo img {
+.avatar-uploader .avatar {
     width: 64px;
     height: 64px;
-    border-radius: 20%;
+    display: block;
 }
 
-.user-fio {
-    max-width: 100px;
+.el-icon.avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 64px;
+    height: 64px;
 }
 
 .user-fio h3 {
@@ -70,16 +130,14 @@ const { user } = defineProps<{
 }
 
 @media (max-width: 600px) {
-  .user-fio {
-    max-width: 120px;
-    min-width: 0;
-  }
+    .user-fio {
+        max-width: 120px;
+    }
 
-  .user-fio p {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+    .user-fio p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
-
 </style>

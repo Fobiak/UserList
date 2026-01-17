@@ -1,5 +1,5 @@
 import { mockUsers } from "@/mocks/mockUsers";
-import type { User } from "@/models/User";
+import type { User, UserUploadDelImage } from "@/models/User";
 
 export interface UsersState {
   users: User[]
@@ -7,18 +7,41 @@ export interface UsersState {
 
 export const usersStore = createStore<UsersState>({
     state: {
-        users: []
+        users: mockUsers
     },
 
     mutations: {
         setUsers(state, users: User[]) {
             state.users = users
+        },
+
+        updateUserImage(state, UserImage: UserUploadDelImage) {
+            const user = state.users.find(user => user.id === UserImage.id)
+            if (user)
+                user.image = UserImage.image
         }
+
     },
 
     actions: {
         loadUsers({ commit }) {
-            commit('setUsers', mockUsers)
+            const data = localStorage.getItem('users')
+            if (data)
+                commit('setUsers', JSON.parse(data))
+            },
+
+        saveUsers({ state }) {
+            localStorage.setItem('users', JSON.stringify(state.users))
+        },
+
+        uploadUserImage({ commit, dispatch }, Image: UserUploadDelImage) {
+            commit('updateUserImage', Image)
+            dispatch('saveUsers')
+        },
+
+        deleteUserImage({ commit, dispatch }, userId: number) {
+            commit('updateUserImage', { id: userId, image: null })
+            dispatch('saveUsers')
         }
     },
 

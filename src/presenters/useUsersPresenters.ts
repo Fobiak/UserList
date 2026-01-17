@@ -1,4 +1,5 @@
 import { SortDirectionEnum, type SortDirectionType, type SortType } from "@/constants/filters";
+import type { UserUploadDelImage } from "@/models/User";
 
 export function useUsersPresenters() {
   const store = useStore()
@@ -8,7 +9,7 @@ export function useUsersPresenters() {
   const sortDirection = ref<SortDirectionType>(SortDirectionEnum.ASC)
   const onlyAdults = ref(false)
 
-const loadUsers = () => {
+  const loadUsers = () => {
       store.dispatch('loadUsers')
   }
 
@@ -39,6 +40,14 @@ const loadUsers = () => {
     sortDirection.value = sortDirection.value === SortDirectionEnum.ASC ? SortDirectionEnum.DESC : SortDirectionEnum.ASC
   }
 
+  const uploadUserImage = (user: UserUploadDelImage) => {
+    store.dispatch('uploadUserImage', user)
+  }
+
+  const deleteUserImage = (userId: number) => {
+    store.dispatch('deleteUserImage', userId)
+  }
+
   const isAvailableSort = computed(() => !!sortBy.value)
 
   return {
@@ -49,6 +58,8 @@ const loadUsers = () => {
     sortDirection,
     onlyAdults,
     toggleSortUsers,
-    isAvailableSort
+    isAvailableSort,
+    uploadUserImage,
+    deleteUserImage
   }
 }

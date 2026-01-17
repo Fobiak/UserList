@@ -3,7 +3,17 @@ import UsersList from '@/components/ui/UsersList.vue';
 import UserFilter from '@/components/ui/UserFilter.vue';
 import { useUsersPresenters } from '@/presenters/useUsersPresenters';
 
-const { loadUsers, users, searchText, sortBy, sortDirection, onlyAdults, isAvailableSort, toggleSortUsers } = useUsersPresenters()
+const { loadUsers,
+    users,
+    searchText,
+    sortBy,
+    sortDirection,
+    onlyAdults,
+    isAvailableSort,
+    toggleSortUsers,
+    uploadUserImage,
+    deleteUserImage
+} = useUsersPresenters()
 
 onMounted(() => {
     loadUsers()
@@ -18,7 +28,7 @@ onMounted(() => {
         <UserFilter v-model:search-text="searchText" v-model:sort-by="sortBy" v-model:sort-direction="sortDirection"
             v-model:only-adults="onlyAdults" :is-available-sort="isAvailableSort" :toggle-sort="toggleSortUsers" />
         <div class="list-wrapper">
-            <UsersList :users="users" />
+            <UsersList :users="users" @upload-image="uploadUserImage" @delete-image="deleteUserImage" />
         </div>
     </div>
 </template>
