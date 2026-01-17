@@ -64,7 +64,7 @@ function handleDeleteImage() {
                 <p>Email: {{ user.email }}</p>
             </div>
         </div>
-        <div class="button">
+        <div v-if="user.image" class="button">
             <ElButton @click="handleDeleteImage">Удалить фото</ElButton>
         </div>
     </div>
