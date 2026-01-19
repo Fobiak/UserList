@@ -15,10 +15,13 @@ export const usersStore = createStore<UsersState>({
             state.users = users
         },
 
-        updateUserImage(state, UserImage: UserUploadDelImage) {
-            const user = state.users.find(user => user.id === UserImage.id)
-            if (user)
-                user.image = UserImage.image
+        updateUserImage(state, payload: UserUploadDelImage) {
+            const user = state.users.find(user => user.id === payload.id)
+
+            if (!user)
+                return
+
+            user.image = payload.image
         }
 
     },
