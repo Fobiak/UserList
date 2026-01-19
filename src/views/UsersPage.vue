@@ -22,11 +22,12 @@ onMounted(() => {
 
 <template>
     <div class="page">
-        <p>
+        <span>
             Управление пользователями
-        </p>
+        </span>
         <UserFilter v-model:search-text="searchText" v-model:sort-by="sortBy" v-model:sort-direction="sortDirection"
-            v-model:only-adults="onlyAdults" :is-available-sort="isAvailableSort" :toggle-sort="toggleSortUsers" />
+            v-model:only-adults="onlyAdults" :is-available-sort="isAvailableSort" :toggle-sort="toggleSortUsers"
+            class="filter" />
         <div class="list-wrapper">
             <UsersList :users="users" @upload-image="uploadUserImage" @delete-image="deleteUserImage" />
         </div>
@@ -40,7 +41,16 @@ onMounted(() => {
     height: 100vh;
     padding: 12px;
     box-sizing: border-box;
-    gap: 12px;
+    gap: 16px;
+}
+
+.filter {
+    border-bottom: 2px solid antiquewhite;
+    border-top: 2px solid antiquewhite;
+    padding: 10px 0;
+    margin: 0 auto;
+    max-width: 600px;
+    width: 100%;
 }
 
 .list-wrapper {
