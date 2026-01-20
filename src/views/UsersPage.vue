@@ -27,9 +27,21 @@ onMounted(() => {
             <p>Поиск, фильтрация и управление профилями</p>
         </header>
 
-        <UserFilter v-model:search-text="searchText" v-model:sort-by="sortBy" v-model:sort-direction="sortDirection"
-            v-model:only-adults="onlyAdults" :is-available-sort="isAvailableSort" :toggle-sort="toggleSortUsers"
-            class="filter" />
+        <div class="filter">
+            <ElCollapse class="mobile-collapse">
+                <ElCollapseItem title="Фильтры">
+                    <UserFilter v-model:search-text="searchText" v-model:sort-by="sortBy"
+                        v-model:sort-direction="sortDirection" v-model:only-adults="onlyAdults"
+                        :is-available-sort="isAvailableSort" :toggle-sort="toggleSortUsers" />
+                </ElCollapseItem>
+            </ElCollapse>
+
+            <div class="desktop-filter">
+                <UserFilter v-model:search-text="searchText" v-model:sort-by="sortBy"
+                    v-model:sort-direction="sortDirection" v-model:only-adults="onlyAdults"
+                    :is-available-sort="isAvailableSort" :toggle-sort="toggleSortUsers" />
+            </div>
+        </div>
         <div class="list-wrapper">
             <UsersList :users="users" @upload-image="uploadUserImage" @delete-image="deleteUserImage" />
         </div>
@@ -83,6 +95,37 @@ onMounted(() => {
         inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
+.mobile-collapse {
+    display: none;
+}
+
+:deep(.el-collapse) {
+    border: none;
+}
+
+:deep(.el-collapse-item__header) {
+    padding-right: 0;
+    border-bottom: none;
+    background: rgba(255, 255, 255, 0.7);
+    max-height: 32px;
+    min-height: 32px;
+}
+
+
+:deep(.el-collapse-item__content) {
+    padding-bottom: 0;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+:deep(.el-collapse-item__wrap) {
+    border-bottom: none;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.desktop-filter {
+    display: block;
+}
+
 .list-wrapper {
     display: flex;
     flex-direction: column;
@@ -104,6 +147,10 @@ onMounted(() => {
 }
 
 @media (max-width: 600px) {
+    .page {
+        gap: 16px;
+    }
+
     .filter {
         max-width: 300px;
     }
@@ -113,6 +160,14 @@ onMounted(() => {
     }
 
     .header p {
+        display: none;
+    }
+
+    .mobile-collapse {
+        display: block;
+    }
+
+    .desktop-filter {
         display: none;
     }
 
