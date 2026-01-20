@@ -9,8 +9,15 @@ body {
 html, body {
   height: 100%;
   margin: 0;
+  background: linear-gradient(135deg, #f5f7fa, #eef1f6);
 }
 
 #app {
   height: 100%;
+}
+
+.el-input__inner::placeholder {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #64748b;
 }

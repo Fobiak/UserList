@@ -22,9 +22,11 @@ onMounted(() => {
 
 <template>
     <div class="page">
-        <span>
-            Управление пользователями
-        </span>
+        <header class="header">
+            <h1>Управление пользователями</h1>
+            <p>Поиск, фильтрация и управление профилями</p>
+        </header>
+
         <UserFilter v-model:search-text="searchText" v-model:sort-by="sortBy" v-model:sort-direction="sortDirection"
             v-model:only-adults="onlyAdults" :is-available-sort="isAvailableSort" :toggle-sort="toggleSortUsers"
             class="filter" />
@@ -38,27 +40,84 @@ onMounted(() => {
 .page {
     display: flex;
     flex-direction: column;
+    align-items: center;
     height: 100vh;
-    padding: 12px;
     box-sizing: border-box;
-    gap: 16px;
+    gap: 24px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.header h1 {
+    padding: 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #0a1122;
+}
+
+.header p {
+    margin: 0;
+    font-size: 14px;
+    color: #64748b;
 }
 
 .filter {
-    border-bottom: 2px solid antiquewhite;
-    border-top: 2px solid antiquewhite;
-    padding: 10px 0;
-    margin: 0 auto;
-    max-width: 600px;
+    max-width: 900px;
     width: 100%;
+    padding: 16px 20px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.filter:hover {
+    box-shadow:
+        0 14px 40px rgba(15, 23, 42, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .list-wrapper {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    overflow-y: auto;
-    min-height: 0;
     gap: 12px;
+    max-width: 900px;
+    width: 100%;
+    height: 100%;
+    padding: 0 20px 24px;
+    overflow-y: auto;
+}
+
+.list-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.list-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(100, 116, 139, 0.3);
+    border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+    .filter {
+        max-width: 300px;
+    }
+
+    .header h1 {
+        margin-bottom: 0;
+    }
+
+    .header p {
+        display: none;
+    }
+
+    .list-wrapper {
+        padding: 0 12px 16px;
+    }
 }
 </style>

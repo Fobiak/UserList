@@ -85,50 +85,69 @@ function handleDeleteImage() {
 .user-card {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    justify-content: space-between;
-    overflow: hidden;
+    gap: 20px;
+    padding: 16px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.65);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.15);
 }
 
 .user-info {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
     flex: 1;
     min-width: 0;
 }
 
 .avatar-uploader .avatar {
-    width: 64px;
-    height: 64px;
-    display: block;
+    width: 92px;
+    height: 92px;
+}
+
+.avatar-uploader .avatar:hover {
+    transform: scale(1.05);
 }
 
 .el-icon.avatar-uploader-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 92px;
+    height: 92px;
     font-size: 28px;
     color: #8c939d;
-    width: 64px;
-    height: 64px;
+    background: rgba(200, 200, 200, 0.2);
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.el-icon.avatar-uploader-icon:hover {
+    background: rgba(200, 200, 200, 0.35);
+    transform: scale(1.05);
 }
 
 .user-fio h3 {
     margin: 0;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #0f172a;
 }
 
 .user-fio p {
     margin: 2px 0 0;
     font-size: 14px;
-    color: #666;
+    color: #64748b;
 }
 
 .button {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
 @media (max-width: 600px) {

@@ -34,8 +34,16 @@ const caretIcon = computed(() => sortDirection.value === SortDirectionEnum.ASC ?
 <style lang="css" scoped>
 .block {
     display: flex;
-    flex-direction: row !important;
+    flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    .block {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 </style>
