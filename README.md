@@ -1,4 +1,4 @@
-# [UserList](https://fobiak.github.io/UserList/)
+# 🔗 [UserList](https://fobiak.github.io/UserList/)
 
 Мини-проект на Vue 3 + Vite + Vuex (MVP) — список пользователей с фильтрами и загрузкой фото.
 
