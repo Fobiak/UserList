@@ -68,7 +68,7 @@ const caretIcon = computed(() => sortDirection.value === SortDirectionEnum.ASC ?
 
 .select-full :deep(.el-select__wrapper) {
     border-right: 1px;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 .sort-button {
