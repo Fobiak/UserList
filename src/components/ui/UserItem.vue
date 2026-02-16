@@ -23,7 +23,6 @@ function beforeUpload(file: File) {
     return true
 }
 
-
 function handleChangeImage(file: UploadFile) {
     const raw = file.raw
 
@@ -49,29 +48,32 @@ function handleDeleteImage() {
 
 <template>
     <div class="user-card">
-        <div class="user-info">
+        <div class="user-card__content">
             <ElUpload :before-upload="beforeUpload" :on-change="handleChangeImage" :show-file-list="false"
-                accept="image/*" :auto-upload="false" class="avatar-uploader">
-                <img v-if="user.image" :src="user.image" class="avatar" />
-                <ElIcon v-else class="avatar-uploader-icon">
+                accept="image/*" :auto-upload="false" class="user-card__uploader">
+                <img v-if="user.image" :src="user.image" class="user-card__avatar" />
+                <ElIcon v-else class="user-card__uploader-icon">
                     <Plus />
                 </ElIcon>
             </ElUpload>
 
-            <div class="user-fio">
-                <h3>{{ user.name }} {{ user.surname }}</h3>
-                <p>Возраст: {{ user.age }}</p>
-                <p>Email: {{ user.email }}</p>
+            <div class="user-card__info">
+                <h3 class="user-card__name">{{ user.name }} {{ user.surname }}</h3>
+                <p class="user-card__age">Возраст: {{ user.age }}</p>
+                <p class="user-card__email">Email: {{ user.email }}</p>
             </div>
         </div>
-        <div v-if="user.image" class="button">
-            <ElButton @click="handleDeleteImage">Удалить фото</ElButton>
+
+        <div v-if="user.image" class="user-card__actions">
+            <ElButton class="user-card__delete-button" @click="handleDeleteImage">
+                Удалить фото
+            </ElButton>
         </div>
     </div>
 </template>
 
 <style lang="css">
-.avatar-uploader .el-upload {
+.user-card__uploader .el-upload {
     border: 1px dashed var(--el-border-color);
     border-radius: 6px;
     cursor: pointer;
@@ -97,7 +99,7 @@ function handleDeleteImage() {
     box-shadow: 0 12px 28px rgba(15, 23, 42, 0.15);
 }
 
-.user-info {
+.user-card__content {
     display: flex;
     align-items: center;
     gap: 16px;
@@ -105,17 +107,23 @@ function handleDeleteImage() {
     min-width: 0;
 }
 
-.avatar-uploader .avatar {
-    width: 92px;
-    height: 92px;
+.user-card__uploader {
+    display: block;
 }
 
-.avatar-uploader .avatar:hover {
+.user-card__avatar {
+    width: 92px;
+    height: 92px;
+    border-radius: 6px;
+    transition: transform 0.2s ease;
+}
+
+.user-card__avatar:hover {
     transform: scale(1.05);
 }
 
-.el-icon.avatar-uploader-icon {
-    display: flex;
+.user-card__uploader-icon {
+    display: flex !important;
     align-items: center;
     justify-content: center;
     width: 92px;
@@ -123,43 +131,82 @@ function handleDeleteImage() {
     font-size: 28px;
     color: #8c939d;
     background: rgba(200, 200, 200, 0.2);
+    border-radius: 6px;
     transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.el-icon.avatar-uploader-icon:hover {
+.user-card__uploader-icon:hover {
     background: rgba(200, 200, 200, 0.35);
     transform: scale(1.05);
 }
 
-.user-fio h3 {
+.user-card__info {
+    flex: 1;
+    min-width: 0;
+}
+
+.user-card__name {
     margin: 0;
     font-size: 18px;
     font-weight: 600;
     color: #0f172a;
 }
 
-.user-fio p {
+.user-card__age,
+.user-card__email {
     margin: 2px 0 0;
     font-size: 14px;
     color: #64748b;
 }
 
-.button {
+.user-card__actions {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
+.user-card__delete-button {
+    white-space: nowrap;
+}
+
 @media (max-width: 600px) {
-    .user-fio {
+    .user-card {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .user-card__content {
+        gap: 12px;
+    }
+
+    .user-card__avatar,
+    .user-card__uploader-icon {
+        width: 72px;
+        height: 72px;
+    }
+
+    .user-card__info {
         flex: 1;
         min-width: 0;
     }
 
-    .user-fio p {
+    .user-card__name {
+        font-size: 16px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    .user-card__age,
+    .user-card__email {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .user-card__delete-button {
+        font-size: 12px;
+        padding: 8px 12px;
     }
 }
 </style>

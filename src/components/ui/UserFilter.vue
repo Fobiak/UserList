@@ -17,24 +17,31 @@ const caretIcon = computed(() => sortDirection.value === SortDirectionEnum.ASC ?
 </script>
 
 <template>
-    <div class="block">
-        <ElInput v-model="searchText" placeholder="Поиск" />
-        <div class="sort">
-            <ElSelect v-model="sortBy" placeholder="Сортировка" clearable class="select"
-                :class="{ 'select-full': !isAvailableSort }">
+    <div class="filters">
+        <ElInput v-model="searchText" placeholder="Поиск" class="filters__input" />
+
+        <div class="filters__sort-group">
+            <ElSelect v-model="sortBy" placeholder="Сортировка" :class="[
+                'filters__select',
+                { 'filters__select--full-width': !isAvailableSort }
+            ]">
                 <ElOption label="По имени" :value="SortByEnum.NAME" />
                 <ElOption label="По возрасту" :value="SortByEnum.AGE" />
             </ElSelect>
-            <ElButton v-if="isAvailableSort" class="sort-button" @click="props.toggleSort">
+
+            <ElButton v-if="isAvailableSort" class="filters__sort-button" @click="props.toggleSort">
                 <component :is="caretIcon" />
             </ElButton>
         </div>
-        <ElCheckbox v-model="ageCheckbox">Больше 18 лет</ElCheckbox>
+
+        <ElCheckbox v-model="ageCheckbox" class="filters__checkbox">
+            Больше 18 лет
+        </ElCheckbox>
     </div>
 </template>
 
 <style lang="css" scoped>
-.block {
+.filters {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -42,55 +49,65 @@ const caretIcon = computed(() => sortDirection.value === SortDirectionEnum.ASC ?
     width: 100%;
 }
 
-.block :first-child {
+.filters__input {
     flex: 4;
 }
 
-.sort {
+.filters__sort-group {
     flex: 2;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.block :last-child {
+.filters__checkbox {
     flex: 1;
 }
 
-.select {
+.filters__select {
     width: 100%;
 }
 
-.select :deep(.el-select__wrapper) {
+.filters__select :deep(.el-select__wrapper) {
     border-right: none;
     border-radius: 4px 0 0 4px;
 }
 
-.select-full :deep(.el-select__wrapper) {
-    border-right: 1px;
+.filters__select--full-width :deep(.el-select__wrapper) {
     border-radius: 4px;
 }
 
-.sort-button {
-    width: 16px;
+.filters__sort-button {
+    width: 32px;
     padding: 0;
     border-left: none;
     border-radius: 0 4px 4px 0;
 }
 
 @media (max-width: 600px) {
-    .block {
+    .filters {
         flex-direction: column;
         gap: 10px;
     }
 
-    .sort {
+    .filters__input {
+        flex: auto;
+        width: 100%;
+    }
+
+    .filters__sort-group {
+        flex: auto;
         width: 100%;
         display: flex;
     }
 
-    .select {
+    .filters__select {
         flex: 1;
+    }
+
+    .filters__checkbox {
+        flex: auto;
+        width: 100%;
     }
 }
 </style>
