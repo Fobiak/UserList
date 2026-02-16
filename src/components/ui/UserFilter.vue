@@ -21,10 +21,9 @@ const caretIcon = computed(() => sortDirection.value === SortDirectionEnum.ASC ?
         <ElInput v-model="searchText" placeholder="Поиск" class="filters__input" />
 
         <div class="filters__sort-group">
-            <ElSelect v-model="sortBy" placeholder="Сортировка" :class="[
+            <ElSelect v-model="sortBy" placeholder="Сортировка" closable :class="[
                 'filters__select',
-                { 'filters__select--full-width': !isAvailableSort }
-            ]">
+                { 'filters__select--full-width': !isAvailableSort }]">
                 <ElOption label="По имени" :value="SortByEnum.NAME" />
                 <ElOption label="По возрасту" :value="SortByEnum.AGE" />
             </ElSelect>
